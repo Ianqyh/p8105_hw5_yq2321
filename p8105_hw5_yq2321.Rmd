@@ -25,6 +25,33 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 
+## Problem 2
+
+The code chunk below creates a tidy dataframe containing data from all participants, including the subject ID, arm, and observations over time.
+
+```{r, message = FALSE}
+df = tibble(
+  file_name = list.files("p8105_hw5_data")) %>% 
+  mutate(
+    file_path = str_c("p8105_hw5_data/", file_name),
+    subject_data = purrr::map(.x = file_path, ~ read_csv(.x))) %>% 
+  unnest(subject_data)
+  
+tidy_df = df %>%
+  mutate(arm_id = str_remove(file_name, ".csv")) %>%
+  separate(arm_id, into = c("arm", "subject_id"), sep = "_") %>%
+  mutate(arm = recode(arm, `con` = "control", `exp` = "experimental")) %>%
+  pivot_longer(
+    week_1:week_8,
+    names_prefix = "week_",
+    names_to = "week",
+    values_to = "observation"
+  ) %>%
+  select(-file_name, -file_path)
+tidy_df
+```
+
+
 ## Problem 3
 
 The code chunk below loads the iris dataset from the tidyverse package and introduces some missing values in each column. 
