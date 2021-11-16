@@ -57,7 +57,7 @@ The code chunk below makes a spaghetti plot showing observations on each subject
 tidy_df %>%
   ggplot(aes(x = week, y = observation, color = arm)) +
   geom_line(aes(group = interaction(arm, subject_id))) +
-  labs(title = "observations on each subject in control and experimental arm over time")
+  labs(title = "observations on each subject in control and experimental arm over time") + theme(plot.title = element_text(size = 10))
 ```
 
 From the plot above, we can see that in general, the observations on subjects in experimental arm are higher than the observations on subjects in the control arm.
@@ -79,7 +79,7 @@ iris_with_missing = iris %>%
 The code chunk below writes a function that takes a vector as an argument, replaces missing values as required, and returns the resulting vector.
 
 ```{r}
-fill_na = function(x) {
+fill_missing = function(x) {
   if (is.numeric((x))) {
     x = replace_na(x, mean(x, na.rm = TRUE)) %>%
       round(digits = 1)
@@ -95,7 +95,7 @@ fill_na = function(x) {
 The code chunk below applies the above function into columns of the dataset iris_with_missing using a map statement.
 
 ```{r}
-iris_filled = map(iris_with_missing, fill_na)
+iris_filled = map(iris_with_missing, fill_missing)
 iris_filled
 ```
 
