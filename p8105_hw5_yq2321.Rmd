@@ -51,6 +51,18 @@ tidy_df = df %>%
 tidy_df
 ```
 
+The code chunk below makes a spaghetti plot showing observations on each subject over time.
+
+```{r}
+tidy_df %>%
+  ggplot(aes(x = week, y = observation, color = arm)) +
+  geom_line(aes(group = interaction(arm, subject_id))) +
+  labs(title = "observations on each subject in control and experimental arm over time")
+```
+
+From the plot above, we can see that in general, the observations on subjects in experimental arm are higher than the observations on subjects in the control arm.
+Plus, in contrast with observations on subjects in the control arm, which barely exhibit any trends, we can observe a slow but steady increase in observations on subjects in the experimental arm.
+
 
 ## Problem 3
 
