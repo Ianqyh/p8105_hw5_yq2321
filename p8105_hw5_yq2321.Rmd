@@ -85,7 +85,7 @@ fill_missing = function(x) {
       round(digits = 1)
   }
   else if (is.character(x)) {
-    x = replace_na(x, "Virginica")
+    x = replace_na(x, "virginica")
   }
   
   return(x)
@@ -95,7 +95,7 @@ fill_missing = function(x) {
 The code chunk below applies the above function into columns of the dataset iris_with_missing using a map statement.
 
 ```{r}
-iris_filled = map(iris_with_missing, fill_missing)
+iris_filled = map_df(iris_with_missing, fill_missing)
 iris_filled
 ```
 
